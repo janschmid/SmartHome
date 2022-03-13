@@ -1,0 +1,2 @@
+DateTime AlarmClock "Alarm Clock [%s]" <time>
+Switch AlarmClockTimer

@@ -1,0 +1,31 @@
+var minVolume = 5
+var lastVolume = 0
+var lastPlayed=""
+var lastSource = ""
+rule "RadioAdvertisement"
+when
+    Item Max2Play_Title changed
+then
+    if (Max2Play_Title.state.toString.contains("Werbung")) {
+        // No call activity
+        logInfo("RadioAdvertisement", "Ad Playing")
+        lastVolume = Max2Play_Volume.state as DecimalType
+        Max2Play_Volume.sendCommand(minVolume)
+        // Max2Play_Volume.sendCommand(max2play_SavedVolume)
+    } 
+    if(lastPlayed.contains("Werbung")){
+        Max2Play_Volume.sendCommand(lastVolume)
+    }
+    lastPlayed = Max2Play_Title.state.toString
+end
+
+
+rule "SpotifyVolumeFix"
+when 
+    Item Max2Play_Source changed
+then
+    if(Max2Play_Source.state.toString.contains("spotify")&&!lastSource.contains("spotify")){
+        Max2Play_Volume.sendCommand(20)
+    }
+    lastSource = Max2Play_Source.state.toString
+end

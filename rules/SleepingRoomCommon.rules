@@ -1,0 +1,14 @@
+
+rule "TurnLightsOff"
+when 
+    Item PhilipsBeing_Brightness changed to 0.0
+then
+        SqueezeLite_Control.sendCommand("PAUSE")
+end
+
+rule "TurnLightsOff"
+when 
+    Item PhilipsBeing_Brightness changed from 0.0
+then
+        SqueezeLite_Control.sendCommand("PLAY")
+end

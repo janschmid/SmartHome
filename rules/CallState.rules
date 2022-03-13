@@ -1,0 +1,20 @@
+var minVolume = 5
+var lastVolume = 0
+rule "Call State Jan"
+when
+    Item CallStateJan changed
+then
+    if (CallStateJan.state == "IDLE") {
+        // No call activity
+        Max2Play_Volume.sendCommand(lastVolume)
+        // Max2Play_Volume.sendCommand(max2play_SavedVolume)
+    } else if (CallStateJan.state == "RINGING") {
+        // A new call arrived and is ringing or waiting. In the latter case, another call is already active.
+        lastVolume = Max2Play_Volume.state as DecimalType
+        Max2Play_Volume.sendCommand(10)
+    } else if (CallStateJan.state == "OFFHOOK") {
+        // At least one call exists that is dialing, active, or on hold, and no calls are ringing or waiting.
+        lastVolume = Max2Play_Volume.state as DecimalType
+        Max2Play_Volume.sendCommand(5)
+    }
+end

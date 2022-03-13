@@ -1,0 +1,5 @@
+Number PeriodHum
+Group gStgtTemperatures
+Number:Temperature sleepingRoomTemperature "Inside [%.2f °C]" <temperature> (gStgtTemperatures) { channel="deconz:temperaturesensor:5fcab52e:00158d000486d83b010402:temperature", ga="thermostatTemperatureSetpoint" }
+Number:Temperature stgtCurrentTemperature "Outside [%.2f °C]"  <temperature> (gStgtTemperatures) { channel="openweathermap:weather-and-forecast:api:stgt:current#temperature" }
+Number:Temperature localDailyForecastTodayMaxTemperature "Maximum temperature for today [%.2f °C]" <temperature> { channel="openweathermap:weather-and-forecast:api:stgt:forecastToday#max-temperature" }

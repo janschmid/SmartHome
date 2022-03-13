@@ -1,0 +1,43 @@
+rule "BeerFridgeTimerWorkOn"
+when
+    Time cron "0 0 0 ? * SUN-THU" // Sunday till thursday at midnight
+then
+BeerFridge.sendCommand("ON")
+end
+
+rule "BeerFridgeTimerWorkOff"
+when
+    Time cron "0 0 8 ? * MON-FRI" // Workday turn off
+then
+BeerFridge.sendCommand("OFF")
+end
+
+rule "BeerFridgeTimerWeekOn"
+when
+    Time cron "0 0 1 ? * FRI-SAT" // Sunday till thursday at midnight
+then
+BeerFridge.sendCommand("ON")
+end
+
+rule "BeerFridgeTimerWeekOff"
+when
+    Time cron "0 0 10 ? * SAT-SUN" // Sunday till thursday at midnight
+then
+BeerFridge.sendCommand("OFF")
+end
+
+rule "BeerFridgeTimerLunchOn"
+when
+    Time cron "0 0 14 * * ?" // Sunday till thursday at midnight
+then
+BeerFridge.sendCommand("ON")
+end
+
+rule "BeerFridgeTimerLunchOff"
+when
+    Time cron "0 0 16 * * ?" // Sunday till thursday at midnight
+then
+BeerFridge.sendCommand("OFF")
+end
+
+

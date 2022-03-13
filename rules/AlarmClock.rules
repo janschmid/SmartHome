@@ -1,0 +1,158 @@
+// import java.time.LocalDateTime;
+// import java.time.Instant;
+// import java.time.ZoneId;
+// import java.time.ZonedDateTime;
+import org.openhab.core.library.types.DateTimeType
+// import java.util.Date;
+//DEBUG
+//openhab-cli console, or$OPENHAB_RUNTIME/bin/client
+//log:tail
+
+var Timer timerAlarm = null //schedule timer, this timer triggers myTimer
+var Timer timerRouter = null
+var Timer myTimer = null //execute the alarm
+var Number myTimerIteration=1
+var Number totalSunriseTime=350 //20 Min [in seconds] //THIS number has to be greater than 100
+var Number startBeforeAlarmClock=900
+var maxVolume = 18
+
+val SetLight=[Number iteration|
+logInfo("AlarmClockTimer", "SetLight skipped...")
+    // if(iteration==0){
+    //     BedroomLight.sendCommand("0,0,0")
+    // }else{
+    //     val minHue = 0.0
+    //     val maxHue = 30.0
+    //     val currentColor = (minHue+((maxHue-minHue)*iteration)/100 as Number).doubleValue
+    //     // float hueStep = (maxHue-minHue)/100
+    //     // logInfo("AlarmClockTimer", String::format("-------------------------SetLight: %f,%f,%f",0, 0, 0))
+    //     BedroomLight.sendCommand(String::format("%f,%f,%f",currentColor,100.0,iteration.doubleValue))
+    // }
+]
+
+rule "StopAlarmClockTimer"
+when 
+    Item Max2Play_Control changed from PLAY to PAUSE
+then
+		logInfo("AlarmClockTimer", "StopAlarmClockTimer")
+        myTimer?.cancel
+        myTimer=null
+        AlarmClockTimer.sendCommand(OFF)
+end
+
+
+rule "PostAlarmClockRule"
+when
+    Item AlarmClockTimer received command ON
+then
+    logInfo("AlarmClockTimer", "Received commmand ON")
+    if(myTimer!==null){
+        return;
+    }
+
+    //Defines
+    var sleepTimeInSeconds=((totalSunriseTime/100) as Number).intValue
+
+    if(sleepTimeInSeconds<1){
+        return;
+    }
+
+    logInfo("AlarmClockTimer", "sleepTimeInSecons: "+sleepTimeInSeconds)
+    Max2Play_Volume.sendCommand(0)
+    Max2Play_PlayFavorite.sendCommand(0)
+    var endOfAlarmCock=3600//3600//one Hour
+     //starts from 0, goes until maxBrightness
+    //value between 0 and 100, at wich step do we change the color (70= after two third of the total time)
+
+
+    var iteration = 1 //we have 100 iteratinos
+    myTimer = createTimer(now().plusSeconds(sleepTimeInSeconds), [ |   
+    logInfo("AlarmClockTimer", "Execute myTimer, iteration: "+iteration)
+
+    iteration++
+    var volume=iteration/3
+    if(iteration<100){
+        //increase the volume in doubled wake up speed
+        if(volume>maxVolume){
+            volume=maxVolume
+        }
+        Max2Play_Volume.sendCommand(volume)
+
+        //We change always the brightness
+
+        SetLight.apply(iteration)
+        myTimer.reschedule(now().plusSeconds(sleepTimeInSeconds))
+
+    }else if(iteration==100){
+        myTimer.reschedule(now().plusSeconds(endOfAlarmCock))
+        logInfo("AlarmClockTimer", "endOfAlarmCock")
+
+    }else{
+        myTimer?.cancel()
+        Max2Play_Control.sendCommand("PAUSE")
+        myTimer=null
+        SetLight.apply(0)
+        AlarmClockTimer.sendCommand(OFF)
+        logInfo("AlarmClockTimer", "Timer set to OFF")
+    }
+    ])
+end
+
+
+// rule "AlarmClock"
+// when
+//     Time cron "*/10 * * * * ?" // Every 10 seconds
+// then
+
+// if(AlarmClock.state!==NULL){
+// 	val diff = AlarmClock.state as Number - now().millis 
+//         //will start in a range of 20 secons (20000 milliseconds)
+// 	    if(diff<=(startBeforeAlarmClock*1000) && diff >=(startBeforeAlarmClock*1000-20000) && diff >0){
+// 		//Sunrise simulation starts here
+//         logInfo("AlarmClockTimer", "Turn AlarmClock ON, diff:"+diff)
+		
+// 	    }
+//     }  
+// end
+
+
+rule "Alarm Clock"
+when
+    Item AlarmClock changed
+then
+    // https://community.openhab.org/t/datetime-conversion/54266
+    if (newState instanceof DateTimeType) {
+        var routerOffset = startBeforeAlarmClock+180
+        var timeAlarmTrigger = newState.toLocaleZone.zonedDateTime.minusSeconds(Long::parseLong(startBeforeAlarmClock.toString))
+        var timeRouter = newState.toLocaleZone.zonedDateTime.minusSeconds(Long::parseLong(routerOffset.toString)) 
+
+        logInfo("AlarmClockTimer", "Scheduling alarm... turn on router at {}, turn on radio at {}, to be ready when alarm rings at {}", timeRouter, timeAlarmTrigger, newState.toLocaleZone)
+        if (timerAlarm !== null) {
+            logInfo("AlarmClockTimer", "Reschedule alarm")
+            timerAlarm.reschedule(timeAlarmTrigger)
+            timerRouter.reschedule(timeRouter)
+        } else {
+            logInfo("AlarmClockTimer", "New alarm")
+            timerAlarm = createTimer(timeRouter, [ |
+                    // Turn on stuff, e.g. radio or light
+                    AlarmClockTimer.sendCommand(ON)
+                    logInfo("alarm", "Alarm for router expired")
+                    timerAlarm = null
+                ])
+            timerRouter = createTimer(timeAlarmTrigger, [ |
+                    // Turn on stuff, e.g. radio or light
+                    // RouterSwitch.sendCommand(ON)
+                    logInfo("alarm", "Alarm for timer expired")
+                    timerRouter = null
+                ])
+        }
+    } else {
+        if (timerAlarm !== null) {
+            timerAlarm.cancel
+            timerAlarm = null
+            timerRouter.cancel
+            timerRouter = null
+            logInfo("AlarmClockTimer", "Alarm canceled")
+        }
+    }
+end

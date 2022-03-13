@@ -1,0 +1,31 @@
+var beerTemperaturLimitFlag = false
+var closeWindowLimitFlag = false
+
+rule "TemperaturMonitor"
+when
+        Item sleepingRoomTemperature changed
+then
+	logInfo("TemperaturMonitor", "flag: " + beerTemperaturLimitFlag.toString+ ", value: " +  sleepingRoomTemperature.state.toString)
+
+	//useless beer rule
+	if(sleepingRoomTemperature.state >= 26|"°C" && beerTemperaturLimitFlag ==false){        
+		sendNotification("schmid.janruben@gmail.com",
+		"It's getting hot in here, time to grap an icecold beer.")
+		beerTemperaturLimitFlag = true
+	}
+	if(sleepingRoomTemperature.state <25|"°C" ){
+		beerTemperaturLimitFlag = false
+	}
+
+	//close Windows
+	 if(sleepingRoomTemperature.state >= stgtCurrentTemperature.state && closeWindowLimitFlag ==false){
+                sendNotification("schmid.janruben@gmail.com",
+                "Keep cool and close your windows")
+                closeWindowLimitFlag = true
+        }
+        if(sleepingRoomTemperature.state < (stgtCurrentTemperature.state - 1|"°C")){
+		closeWindowLimitFlag = false
+        }
+
+	
+end

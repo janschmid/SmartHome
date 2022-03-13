@@ -1,0 +1,4 @@
+Bridge squeezebox:squeezeboxserver:raspi [ ipAddress="localhost", webport=9000, cliport=9090 ]
+{
+    Thing squeezeboxplayer max2play[ mac="b8:27:eb:a4:69:dd" , notificationTimeout=30, notificationVolume=35]
+}

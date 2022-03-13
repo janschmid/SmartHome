@@ -1,0 +1,18 @@
+import org.openhab.core.library.types.DateTimeType
+
+var Number totalSunriseTime = 100
+var divider = 50
+var myTimer=null
+
+rule "rule triggered by RULE TRIGGER"
+when 
+	Item Rule_Trigger received command ON
+then
+    var endOfAlarmClock=totalSunriseTime/divider
+    logInfo("Rule_Trigger", "Triggered: "+endOfAlarmClock)
+    // var test = now().plusSeconds(1)
+    myTimer = createTimer(now().plusSeconds(endOfAlarmClock), [ |
+        logInfo("Rule_Trigger", "Executed")
+    ])
+    
+end

@@ -1,0 +1,21 @@
+sitemap maintanance label="Maintenance"{
+    Frame label="Sensor"{
+            Default item=Livingroom_Battery
+            Default item=TemperatureLastUpdated icon="time"
+    }
+    Frame label="Devices"{
+            Switch item=JanPcSwitch icon="screen" label="Desktop PC" 
+            Switch item=RockPiNextcloud icon="nextcloud_logo" label="Rock Pi Nextcloud" 
+    }
+        Frame label="Debug"{
+            Default item=Rule_Trigger
+            Default item=AlarmClockTimer
+            Default item=Max2Play_Title
+            Default item=Max2Play_RemoteTitle
+            Default item=RadioAd_LastPlayed
+            Default item=Max2Play_Source
+            Default item=Max2Play_Stream
+            // Default item=RouterSwitch
+            Default item=Fridge
+        }
+}

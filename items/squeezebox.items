@@ -1,0 +1,8 @@
+//String YourPlayer_PlayFavorite "Play Favorite [%s]" { channel="squeezebox:squeezeboxserver:DE39CDB3-3AB4-4A9B-968E-FB3A1FADE0AE:favoritesList" }
+String Max2Play_PlayFavorite "Play Favorite [%s]" { channel="squeezebox:squeezeboxplayer:raspi:max2play:playFavorite" }
+Dimmer Max2Play_Volume "Squeezebox Volume" { channel="squeezebox:squeezeboxplayer:raspi:max2play:volume" }
+Player Max2Play_Control "Squeezebox Control" { channel="squeezebox:squeezeboxplayer:raspi:max2play:control" }
+String Max2Play_Title "Squeezebox Title" { channel="squeezebox:squeezeboxplayer:raspi:max2play:title" }
+String Max2Play_RemoteTitle "Squeezebox RemoteTitle" { channel="squeezebox:squeezeboxplayer:raspi:max2play:remotetitle" }
+String Max2Play_Source "Squeezebox Source" { channel="squeezebox:squeezeboxplayer:raspi:max2play:source" }
+String Max2Play_Stream "Squeezebox Stream" { channel="squeezebox:squeezeboxplayer:raspi:max2play:stream" }

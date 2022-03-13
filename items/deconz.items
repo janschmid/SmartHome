@@ -1,0 +1,28 @@
+Color OsramLightStrip {channel="deconz:extendedcolorlight:homeserver:OsramLightStrip:color"}   
+// Color OsramLightStrip_brightness {channel="deconz:extendedcolorlight:homeserver:OsramLightStrip:brightness"}  
+// Color OsramLightStrip_temp {channel="deconz:extendedcolorlight:homeserver:OsramLightStrip:color_temperature"}  
+
+Switch Rule_Trigger "RuleTrigger"
+Switch JanPcSwitch  {channel="deconz:onofflight:homeserver:JanPCSwitch:switch"}
+Switch RockPiNextcloud "RockPiNextcloud" {channel="deconz:onofflight:homeserver:RockPiNextcloud:switch"}
+Dimmer WorkRoomLight {channel="deconz:dimmablelight:homeserver:WorkRoomLight:brightness"}
+Number:Temperature      Inside_Temperature  "Temperature [%.1f °C]"  <temperature>   { channel="deconz:temperaturesensor:homeserver:livingroom-temperature:temperature" }
+Number:Dimensionless      Livingroom_Humidity  "Humidity [%.1f %%]"  <humidity>   { channel="deconz:humiditysensor:homeserver:livingroom-humidity:humidity" }
+Number:Pressure         Livingroom_Pressure     "Pressure [%.1f hPa]"    <pressure>      { channel="deconz:pressuresensor:homeserver:livingroom-pressure:pressure" }
+DateTime TemperatureLastUpdated {channel="deconz:temperaturesensor:homeserver:livingroom-temperature:last_updated"}
+Number   Livingroom_Battery      "Battery [%.1f]" <Battery> {channel="deconz:temperaturesensor:homeserver:livingroom-temperature:battery_level"}//{channel="deconz:temperaturesensor:homeserver::livingroom-temperature:battery_level"}
+Number                  BatteryLow       {channel="deconz:temperaturesensor:homeserver::livingroom-temperature:battery_low"}
+Switch PhilipsSwitch "PhilipsSwitch" {channel="deconz:switch:homeserver:PhilipsSwitch:buttonevent"}
+Dimmer PhilipsBeing_Brightness {channel="deconz:dimmablelight:homeserver:PhilipsBeing:brightness"}
+Number PhilipsBeing_ColorTemperature {channel="deconz:extendedcolorlight:homeserver:PhilipsBeing:color_temperature"}
+// Number InsideTemperatur {channel="deconz:"}
+// Switch RouterSwitch {channel="deconz:onofflight:homeserver:RouterSwitch"} 
+
+// Switch                  Livingroom_Presence     "Presence Livingroom [%s]"          <motion>        { channel="deconz:presencesensor:homeserver:livingroom-presence:presence" }
+// Number:Temperature      Livingroom_Temperature  "Temperature Livingroom [%.1f °C]"  <temperature>   { channel="deconz:temperaturesensor:homeserver:livingroom-temperature:temperature" }
+// Number:Dimensionless    Livingroom_Humidity     "Humidity Livingroom [%.1f %%]"     <humidity>      { channel="deconz:humiditysensor:homeserver:livingroom-humidity:humidity" }
+// Number:Pressure         Livingroom_Pressure     "Pressure Livingroom [%.1f hPa]"    <pressure>      { channel="deconz:pressuresensor:homeserver:livingroom-pressure:pressure" }
+// Contact                 Livingroom_Window       "Window Livingroom [%s]"            <door>          { channel="deconz:openclosesensor:homeserver:livingroom-window:open" }
+// Switch                  Basement_Water_Leakage  "Basement Water Leakage [%s]"                       { channel="deconz:waterleakagesensor:homeserver:basement-water-leakage:waterleakage" }
+// Switch                  Basement_Alarm          "Basement Alarm Triggered [%s]"                     { channel="deconz:alarmsensor:homeserver:basement-alarm:alarm" }
+// Dimmer                  Livingroom_Ceiling      "Livingroom Ceiling [%d]"           <light>         { channel="deconz:dimmablelight:homeserver:livingroom-ceiling:brightness" }                 

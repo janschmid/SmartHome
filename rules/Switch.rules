@@ -1,0 +1,17 @@
+// syntax: 
+// xxx0: Initial press
+// xxx1: Hold
+// xxx2: short release
+// xxx3: long release
+rule "Switch_rule"
+when Channel "deconz:switch:homeserver:PhilipsSwitch:buttonevent" triggered
+then
+    switch(receivedEvent){
+        case "1000": OsramLightStrip.sendCommand(ON)//On
+        case "1001": Max2Play_Control.sendCommand("PLAY")
+        // case "2000": continue//Brighter
+        // case "3000": continue//Darker
+        case "4000": OsramLightStrip.sendCommand(OFF)//Off
+        case "4001": Max2Play_Control.sendCommand("PAUSE")
+    }
+end

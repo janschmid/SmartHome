@@ -1,0 +1,18 @@
+rule "Sunset Rule"
+when
+    Channel 'AstroSunData_Rise_StartTime#event' triggered START
+then
+    // Do what you want to do at start of sunset for example:
+    logInfo("SunRiseSet", "Sunset Rule")
+    PhilipsBeing_ColorTemperature.sendCommand(20)
+
+end
+
+rule "Sunrise Rule"
+when
+    Channel 'AstroSunData_Set_StartTime#event' triggered START
+then
+    // Do what you want to do at start of sunset
+    logInfo("SunRiseSet", "Sunrise Rule")
+    PhilipsBeing_ColorTemperature.sendCommand(80)
+end

@@ -1,0 +1,34 @@
+sitemap default label="Home"{
+    Frame label="Deckenleuchte"{
+        Slider item=PhilipsBeing_Brightness icon="light" label="Brightness" 
+        Slider item=PhilipsBeing_ColorTemperature icon="colorwheel" label="Color" minValue=2200 maxValue=6500
+    }
+    Frame label="LightStrip"{
+        // Colorpicker item=OsramLightStrip label="Schlafzimmerlicht" icon="colorwheel"
+        Default item=OsramLightStrip icon="light" label="Brihtness" 
+    }
+    Frame label="Music"{
+        Slider item=Max2Play_Volume icon="soundvolume" label="Volume" minValue=0 maxValue=50 
+	    Default item=Max2Play_Control label="Control" icon="receiver"
+        Selection item=Max2Play_PlayFavorite  label="Favorites List" icon="receiver" 
+
+        Default item=Inside_Temperature
+        Default item=Livingroom_Humidity
+        // Default item=RouterSwitch label="Router"
+        // Slider Test "Test" network {channel="deconz:dimmablelight:homeserver:WorkRoomLight:brightness"}
+        // Switch item=WorkRoomLight
+
+        // Default item=Rule_Trigger
+        // Default item=AlarmClockTimer
+	// Selection item=RaspiRadioStation label="Radio Station" mappings=[0="OFF", 1="SWR 1", 2="SWR 2", 3="SWR 3", 4="SWR 4", 7="Die neue 107.7"] icon="receiver"
+    }
+    // Frame label="Sensor"{
+	// Default item=sleepingRoomTemperature label="Inside" icon="temperature"
+	// Default item=stgtCurrentTemperature label="Outside" icon="temperature"
+	// Default item=localDailyForecastTodayMaxTemperature  label="MaxOutside" icon="temperature"
+	// //Default item=AquaraSmartAirPressureSensor_Humidity label="Sleepingroom" icon="humidity"
+	// //Default item=AquaraSmartAirPressureSensor_Pressure label="Sleepingroom" icon="pressure"
+	// //Default item=AquaraSmartAirPressureSensor_LastUpdated label="Sleepingroom" icon="time"
+    // }
+}
+

@@ -1,0 +1,28 @@
+//Setup all lights/sensors/... from deconz.
+//See docu: http://gsf.diphda.uberspace.de/smarthome/2019/03/24/teil-4-openhab2-frust-mit-zigbee/
+//To get the ID, make a http get request to: http://deconzIp:deconzPort/api/API_KEY/lights
+//In this case: http://192.168.0.100:81/api/AB9C7464F3/lights
+// replace lights with /sensors, /scenes, see https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Hue-API-Compatibility
+// Type: https://www.openhab.org/addons/bindings/deconz/
+Bridge deconz:deconz:homeserver [ host="localhost", httpPort="81", apikey="AB9C7464F3" ]{
+    extendedcolorlight OsramLightStrip "OsramLightStrip"  [ id="2" ]
+    dimmablelight WorkRoomLight "WorkRoomLight" [id="3"]
+    onofflight JanPCSwitch "JanPCSwitch" [id="4"]
+    temperaturesensor livingroom-temperature "livingroom-temperature" [id="6"]
+    humiditysensor livingroom-humidity "livingroom-humidity" [id="7"]
+    pressuresensor      livingroom-pressure     "Livingroom Pressure"       [ id="8" ]
+    onofflight RockPiNextcloud "RockPiNextcloud" [id="5"]
+    extendedcolorlight PhilipsBeing "PhilipsBeing" [id="6"]
+    dimmablelight PhilipsBeing "PhilipsBeing" [id="6"]
+    switch PhilipsSwitch "PhilipsSwitch" [id="5"]
+}
+
+// presencesensor      livingroom-presence     "Livingroom Presence"       [ id="1" ]
+// temperaturesensor   livingroom-temperature  "Livingroom Temperature"    [ id="2" ]
+// humiditysensor      livingroom-humidity     "Livingroom Humidity"       [ id="3" ]
+// pressuresensor      livingroom-pressure     "Livingroom Pressure"       [ id="4" ]
+// openclosesensor     livingroom-window       "Livingroom Window"         [ id="5" ]
+// switch              livingroom-hue-tap      "Livingroom Hue Tap"        [ id="6" ]
+// waterleakagesensor  basement-water-leakage  "Basement Water Leakage"    [ id="7" ]
+// alarmsensor         basement-alarm          "Basement Alarm Sensor"     [ id="8", lastSeenPolling=5 ]
+// dimmablelight       livingroom-ceiling      "Livingroom Ceiling"        [ id="1" ]
