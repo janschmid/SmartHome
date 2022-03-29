@@ -1,7 +1,7 @@
 sitemap default label="Home"{
     Frame label="Deckenleuchte"{
         Slider item=PhilipsBeing_Brightness icon="light" label="Brightness" 
-        Slider item=PhilipsBeing_ColorTemperature icon="colorwheel" label="Color" minValue=2200 maxValue=6500
+        Slider item=PhilipsBeing_ColorTemperature icon="colorwheel" label="Color" minValue=2200 maxValue=6450
     }
     Frame label="LightStrip"{
         // Colorpicker item=OsramLightStrip label="Schlafzimmerlicht" icon="colorwheel"

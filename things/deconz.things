@@ -13,7 +13,7 @@ Bridge deconz:deconz:homeserver [ host="localhost", httpPort="81", apikey="AB9C7
     pressuresensor      livingroom-pressure     "Livingroom Pressure"       [ id="8" ]
     onofflight RockPiNextcloud "RockPiNextcloud" [id="5"]
     extendedcolorlight PhilipsBeing "PhilipsBeing" [id="6"]
-    dimmablelight PhilipsBeing "PhilipsBeing" [id="6"]
+    colortemperaturelight PhilipsBeing "PhilipsBeing" [id="6"]
     switch PhilipsSwitch "PhilipsSwitch" [id="5"]
 }
 

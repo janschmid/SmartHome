@@ -13,8 +13,8 @@ DateTime TemperatureLastUpdated {channel="deconz:temperaturesensor:homeserver:li
 Number   Livingroom_Battery      "Battery [%.1f]" <Battery> {channel="deconz:temperaturesensor:homeserver:livingroom-temperature:battery_level"}//{channel="deconz:temperaturesensor:homeserver::livingroom-temperature:battery_level"}
 Number                  BatteryLow       {channel="deconz:temperaturesensor:homeserver::livingroom-temperature:battery_low"}
 Switch PhilipsSwitch "PhilipsSwitch" {channel="deconz:switch:homeserver:PhilipsSwitch:buttonevent"}
-Dimmer PhilipsBeing_Brightness {channel="deconz:dimmablelight:homeserver:PhilipsBeing:brightness"}
-Number PhilipsBeing_ColorTemperature {channel="deconz:extendedcolorlight:homeserver:PhilipsBeing:color_temperature"}
+Dimmer PhilipsBeing_Brightness {channel="deconz:colortemperaturelight:homeserver:PhilipsBeing:brightness"}
+Number PhilipsBeing_ColorTemperature {channel="deconz:colortemperaturelight:homeserver:PhilipsBeing:color_temperature"}
 // Number InsideTemperatur {channel="deconz:"}
 // Switch RouterSwitch {channel="deconz:onofflight:homeserver:RouterSwitch"} 
 
